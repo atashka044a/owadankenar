@@ -1,9 +1,22 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": null,
-  "buildCommand": null,
-  "installCommand": null,
-  "outputDirectory": ".",
+  "version": 2,
+  "builds": [
+    { "src": "index.html", "use": "@vercel/static" },
+    { "src": "about.html", "use": "@vercel/static" },
+    { "src": "services.html", "use": "@vercel/static" },
+    { "src": "contact.html", "use": "@vercel/static" },
+    { "src": "style.css", "use": "@vercel/static" },
+    { "src": "app.js", "use": "@vercel/static" },
+    { "src": "script.js", "use": "@vercel/static" },
+    { "src": "i18n.js", "use": "@vercel/static" },
+    { "src": "icons.svg", "use": "@vercel/static" },
+    { "src": "images/**", "use": "@vercel/static" },
+    { "src": "logo/**", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "handle": "filesystem" }
+  ],
   "cleanUrls": true,
   "trailingSlash": false,
   "headers": [
