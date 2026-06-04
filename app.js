@@ -1,13 +1,18 @@
 /**
- * Owadan Kenar — Shared app: i18n, navigation, scroll effects
+ * Owadan Kenar — Shared app
+ * i18n, navigation, scroll effects, magnetic buttons, 3D tilt, split-text, scroll progress
  */
+document.documentElement.classList.add('js');
+
 const App = (function () {
   'use strict';
 
   const STORAGE_KEY = 'ok-lang';
   const DEFAULT_LANG = 'en';
   let currentLang = DEFAULT_LANG;
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* ---------- Language ---------- */
   function getLang() {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved && I18N[saved]) return saved;
@@ -70,13 +75,13 @@ const App = (function () {
     setLang(getLang());
   }
 
+  /* ---------- Header scroll state ---------- */
   function initHeader() {
     const header = document.getElementById('header');
     if (!header) return;
-
-    let ticking = false;
     const isInner = header.classList.contains('header--inner');
 
+    let ticking = false;
     function update() {
       if (!isInner) {
         if (window.scrollY > 60) header.classList.add('scrolled');
@@ -84,7 +89,6 @@ const App = (function () {
       }
       ticking = false;
     }
-
     if (isInner) header.classList.add('scrolled');
 
     window.addEventListener('scroll', () => {
@@ -96,6 +100,28 @@ const App = (function () {
     update();
   }
 
+  /* ---------- Scroll progress bar ---------- */
+  function initScrollProgress() {
+    const bar = document.getElementById('scrollProgress');
+    if (!bar) return;
+    let ticking = false;
+    function update() {
+      const h = document.documentElement;
+      const max = h.scrollHeight - h.clientHeight;
+      const pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+      bar.style.width = pct + '%';
+      ticking = false;
+    }
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(update);
+        ticking = true;
+      }
+    }, { passive: true });
+    update();
+  }
+
+  /* ---------- Mobile nav drawer ---------- */
   function initMobileNav() {
     const navToggle = document.getElementById('navToggle');
     const navOverlay = document.getElementById('navOverlay');
@@ -136,6 +162,7 @@ const App = (function () {
     });
   }
 
+  /* ---------- Highlight active nav link ---------- */
   function initActiveNav() {
     let path = window.location.pathname.split('/').pop();
     if (!path || path === '') path = 'index.html';
@@ -143,16 +170,22 @@ const App = (function () {
       const href = link.getAttribute('href');
       if (!href || href.startsWith('#')) return;
       const linkPath = href.split('/').pop();
-      link.classList.toggle('active', linkPath === path || (path === '' && linkPath === 'index.html'));
+      link.classList.toggle('active', linkPath === path);
     });
   }
 
+  /* ---------- Reveal-on-scroll ---------- */
+  function isInViewport(el) {
+    const r = el.getBoundingClientRect();
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    return r.top < vh * 0.92 && r.bottom > vh * 0.05;
+  }
+
   function initReveal() {
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const els = document.querySelectorAll('.reveal');
+    const els = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .split-text');
     if (!els.length) return;
 
-    if (prefersReduced) {
+    if (prefersReducedMotion) {
       els.forEach((el) => el.classList.add('is-visible'));
       return;
     }
@@ -166,13 +199,129 @@ const App = (function () {
           }
         });
       },
-      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+      { threshold: 0.08, rootMargin: '0px 0px -20px 0px' }
     );
-    els.forEach((el) => obs.observe(el));
+
+    els.forEach((el) => {
+      if (isInViewport(el)) el.classList.add('is-visible');
+      obs.observe(el);
+    });
+
+    window.addEventListener('load', () => {
+      requestAnimationFrame(() => {
+        els.forEach((el) => {
+          if (!el.classList.contains('is-visible') && isInViewport(el)) {
+            el.classList.add('is-visible');
+          }
+        });
+      });
+    }, { once: true });
   }
 
+  /* ---------- Split-text setup (word-by-word) ---------- */
+  function initSplitText() {
+    if (prefersReducedMotion) return;
+    document.querySelectorAll('[data-split]').forEach((el) => {
+      const text = el.textContent || '';
+      const parts = text.split(/(\s+)/);
+      el.innerHTML = '';
+      let i = 0;
+      parts.forEach((part) => {
+        if (part.trim() === '') {
+          el.appendChild(document.createTextNode(part));
+          return;
+        }
+        const w = document.createElement('span');
+        w.className = 'split-word';
+        const inner = document.createElement('span');
+        inner.className = 'split-word__inner';
+        inner.style.setProperty('--i', i);
+        inner.textContent = part;
+        w.appendChild(inner);
+        el.appendChild(w);
+        i++;
+      });
+      el.classList.add('split-text');
+    });
+  }
+
+  /* ---------- Magnetic CTA buttons ---------- */
+  function initMagnetic() {
+    if (prefersReducedMotion) return;
+    if (matchMedia('(hover: none)').matches) return;
+
+    document.querySelectorAll('[data-magnetic]').forEach((btn) => {
+      const strength = parseFloat(btn.dataset.magnetic) || 0.35;
+
+      btn.addEventListener('mousemove', (e) => {
+        const r = btn.getBoundingClientRect();
+        const x = e.clientX - r.left - r.width / 2;
+        const y = e.clientY - r.top - r.height / 2;
+        btn.style.transform = `translate(${x * strength}px, ${y * strength}px)`;
+      });
+
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform = '';
+      });
+    });
+  }
+
+  /* ---------- 3D Card tilt ---------- */
+  function initTilt() {
+    if (prefersReducedMotion) return;
+    if (matchMedia('(hover: none)').matches) return;
+
+    document.querySelectorAll('[data-tilt]').forEach((card) => {
+      const max = parseFloat(card.dataset.tilt) || 8;
+
+      function onMove(e) {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width;
+        const y = (e.clientY - r.top) / r.height;
+        const rx = (0.5 - y) * max;
+        const ry = (x - 0.5) * max;
+        card.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-6px)`;
+        card.style.setProperty('--mx', `${x * 100}%`);
+        card.style.setProperty('--my', `${y * 100}%`);
+      }
+
+      function reset() {
+        card.style.transform = '';
+        card.style.removeProperty('--mx');
+        card.style.removeProperty('--my');
+      }
+
+      card.addEventListener('mousemove', onMove);
+      card.addEventListener('mouseleave', reset);
+    });
+  }
+
+  /* ---------- Marquee duplication (seamless loop) ---------- */
+  function initMarquee() {
+    document.querySelectorAll('.marquee__track').forEach((track) => {
+      if (track.dataset.cloned) return;
+      const clone = track.innerHTML;
+      track.innerHTML += clone;
+      track.dataset.cloned = '1';
+    });
+  }
+
+  /* ---------- Icon sprite (fallback fetch if not inline) ---------- */
   function injectIconSprite() {
-    if (document.getElementById('ok-icon-sprite')) return; /* inline or already loaded */
+    const existing = document.getElementById('ok-icon-sprite');
+    if (existing && existing.querySelector('#icon-handshake')) return;
+    if (existing && !existing.querySelector('#icon-handshake')) {
+      fetch('icons.svg')
+        .then((res) => (res.ok ? res.text() : Promise.reject()))
+        .then((svgText) => {
+          const doc = new DOMParser().parseFromString(svgText, 'image/svg+xml');
+          doc.querySelectorAll('symbol').forEach((sym) => {
+            if (!existing.querySelector('#' + sym.id)) existing.appendChild(sym.cloneNode(true));
+          });
+        })
+        .catch(() => {});
+      return;
+    }
     fetch('icons.svg')
       .then((res) => (res.ok ? res.text() : Promise.reject()))
       .then((svgText) => {
@@ -193,11 +342,16 @@ const App = (function () {
   function init() {
     injectIconSprite();
     currentLang = getLang();
+    initSplitText();
     initLangSwitcher();
     initHeader();
+    initScrollProgress();
     initMobileNav();
     initActiveNav();
     initReveal();
+    initMagnetic();
+    initTilt();
+    initMarquee();
   }
 
   return { init, setLang, getLang: () => currentLang, applyTranslations };
