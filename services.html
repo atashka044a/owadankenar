@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="style.css">
   <script>
-    (function () { var l = localStorage.getItem('ok-lang'); if (l) document.documentElement.lang = l === 'tk' ? 'tk' : l; })();
+    (function () { var l = localStorage.getItem('ok-lang') || 'ru'; document.documentElement.lang = l === 'tk' ? 'tk' : l; })();
   </script>
 </head>
 <body data-page="services">
@@ -20,8 +20,7 @@
   <header class="header header--inner" id="header">
     <nav class="nav container" aria-label="Main navigation">
       <a href="index.html" class="nav__logo">
-        <img src="logo/owadan-logo.png" alt="Owadan Kenar" class="nav__logo-img" width="42" height="42">
-        <span class="nav__logo-text">OWADAN KENAR</span>
+        <img src="logo/owadan-logo-full.png" alt="Owadan Kenar Logistics" class="nav__logo-img" width="107" height="66">
       </a>
       <ul class="nav__links" id="navLinks">
         <li><a href="index.html" class="nav__link" data-i18n="nav.home">Home</a></li>
@@ -32,9 +31,9 @@
       </ul>
       <div class="nav__actions">
         <div class="lang-switcher" role="group" aria-label="Language">
-          <button type="button" class="lang-btn active" data-lang="en">EN</button>
+          <button type="button" class="lang-btn" data-lang="en">EN</button>
           <button type="button" class="lang-btn" data-lang="tk">TK</button>
-          <button type="button" class="lang-btn" data-lang="ru">RU</button>
+          <button type="button" class="lang-btn active" data-lang="ru">RU</button>
         </div>
         <a href="contact.html" class="btn btn--accent nav__cta" data-i18n="nav.getQuote">Get a Quote</a>
         <button type="button" class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
@@ -55,15 +54,15 @@
     </ul>
     <a href="contact.html" class="btn btn--accent nav-drawer__cta" data-i18n="nav.getQuote">Get a Quote</a>
     <div class="lang-switcher lang-switcher--drawer" role="group" aria-label="Language">
-      <button type="button" class="lang-btn active" data-lang="en">EN</button>
+      <button type="button" class="lang-btn" data-lang="en">EN</button>
       <button type="button" class="lang-btn" data-lang="tk">TK</button>
-      <button type="button" class="lang-btn" data-lang="ru">RU</button>
+      <button type="button" class="lang-btn active" data-lang="ru">RU</button>
     </div>
   </aside>
 
   <main>
     <section class="page-hero">
-      <div class="page-hero__bg" style="background-image:url('images/photo-1586528116311-ad8dd3c8310d.jpg')"></div>
+      <div class="page-hero__bg" style="background-image:url('images/services-hero-containers.png')"></div>
       <div class="page-hero__overlay"></div>
       <div class="container page-hero__content">
         <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -90,9 +89,23 @@
           <h2 class="section__title">Transport &amp; <span class="accent" data-i18n="services.catLogistics">Logistics</span></h2>
         </header>
         <div class="services__grid">
-          <article class="service-card reveal" id="service-container" style="--i:0" data-tilt="6">
+          <article class="service-card service-card--premium reveal" id="service-perishable" style="--i:0" data-tilt="6">
+            <a href="perishable.html" class="service-card__hit" data-i18n-aria="services.learnMore" aria-label="Learn more"></a>
             <div class="service-card__img-wrap">
-              <img src="images/photo-1580674285054-bed31e145f59.jpg" alt="" class="service-card__img" loading="lazy" width="600" height="375">
+              <img src="images/perish-tomato-vine.webp" alt="" class="service-card__img" loading="lazy" width="1200" height="800">
+              <div class="service-card__overlay"></div>
+              <span class="service-card__cat service-card__cat--perish" data-i18n="perishable.badge">Premium Service</span>
+              <span class="service-card__badge" aria-hidden="true"><svg class="icon"><use href="#icon-leaf"/></svg></span>
+            </div>
+            <div class="service-card__body">
+              <h3 class="service-card__title" data-i18n="perishable.card.title">Perishable Products</h3>
+              <p class="service-card__desc" data-i18n="perishable.card.desc">Temperature-controlled international delivery of fresh vegetables and fruits.</p>
+              <span class="service-card__more" data-i18n="services.learnMore">Learn more</span>
+            </div>
+          </article>
+          <article class="service-card reveal" id="service-container" style="--i:1" data-tilt="6">
+            <div class="service-card__img-wrap">
+              <img src="images/svc-container-terminal.webp" alt="" class="service-card__img" loading="lazy" width="1200" height="800">
               <div class="service-card__overlay"></div>
               <span class="service-card__cat" data-i18n="services.catLogistics">Logistics</span>
               <span class="service-card__badge" aria-hidden="true"><svg class="icon"><use href="#icon-container"/></svg></span>
@@ -102,9 +115,9 @@
               <p class="service-card__desc" data-i18n="services.container.desc">Container shipping &amp; handling for import, export and transit cargo.</p>
             </div>
           </article>
-          <article class="service-card reveal" id="service-road" style="--i:1" data-tilt="6">
+          <article class="service-card reveal" id="service-road" style="--i:2" data-tilt="6">
             <div class="service-card__img-wrap">
-              <img src="images/photo-1519003722824-194d4455a60c.jpg" alt="" class="service-card__img" loading="lazy" width="600" height="375">
+              <img src="images/svc-road-freight.webp" alt="" class="service-card__img" loading="lazy" width="1200" height="800">
               <div class="service-card__overlay"></div>
               <span class="service-card__cat" data-i18n="services.catLogistics">Logistics</span>
               <span class="service-card__badge" aria-hidden="true"><svg class="icon"><use href="#icon-truck"/></svg></span>
@@ -114,7 +127,7 @@
               <p class="service-card__desc" data-i18n="services.road.desc">Full-load and groupage trucking across Turkmenistan and Central Asia.</p>
             </div>
           </article>
-          <article class="service-card reveal" id="service-rail" style="--i:2" data-tilt="6">
+          <article class="service-card reveal" id="service-rail" style="--i:3" data-tilt="6">
             <div class="service-card__img-wrap">
               <img src="images/photo-1474487548417-781cb71495f3.jpg" alt="" class="service-card__img" loading="lazy" width="600" height="375">
               <div class="service-card__overlay"></div>
@@ -126,9 +139,9 @@
               <p class="service-card__desc" data-i18n="services.rail.desc">Rail freight connecting Turkmenistan to CIS and European markets.</p>
             </div>
           </article>
-          <article class="service-card reveal" id="service-sea" style="--i:3" data-tilt="6">
+          <article class="service-card reveal" id="service-sea" style="--i:4" data-tilt="6">
             <div class="service-card__img-wrap">
-              <img src="images/photo-1712578585447-2bab142270b0.jpg" alt="" class="service-card__img" loading="lazy" width="600" height="375">
+              <img src="images/svc-sea-freight.webp" alt="" class="service-card__img" loading="lazy" width="1200" height="675">
               <div class="service-card__overlay"></div>
               <span class="service-card__cat" data-i18n="services.catLogistics">Logistics</span>
               <span class="service-card__badge" aria-hidden="true"><svg class="icon"><use href="#icon-ship"/></svg></span>
@@ -138,9 +151,9 @@
               <p class="service-card__desc" data-i18n="services.sea.desc">Maritime logistics for international import and export shipments.</p>
             </div>
           </article>
-          <article class="service-card reveal" id="service-air" style="--i:4" data-tilt="6">
+          <article class="service-card reveal" id="service-air" style="--i:5" data-tilt="6">
             <div class="service-card__img-wrap">
-              <img src="images/photo-1436491865332-7a61a109cc05.jpg" alt="" class="service-card__img" loading="lazy" width="600" height="375">
+              <img src="images/svc-air.webp" alt="" class="service-card__img" loading="lazy" width="1200" height="1200">
               <div class="service-card__overlay"></div>
               <span class="service-card__cat" data-i18n="services.catLogistics">Logistics</span>
               <span class="service-card__badge" aria-hidden="true"><svg class="icon"><use href="#icon-plane"/></svg></span>
@@ -150,9 +163,9 @@
               <p class="service-card__desc" data-i18n="services.air.desc">Fast air cargo solutions for time-sensitive and high-value goods.</p>
             </div>
           </article>
-          <article class="service-card reveal" id="service-hazardous" style="--i:5" data-tilt="6">
+          <article class="service-card reveal" id="service-hazardous" style="--i:6" data-tilt="6">
             <div class="service-card__img-wrap">
-              <img src="images/photo-1581094794329-c8112a89af12.jpg" alt="" class="service-card__img" loading="lazy" width="600" height="375">
+              <img src="images/svc-hazardous-cargo.webp" alt="" class="service-card__img" loading="lazy" width="1200" height="2138">
               <div class="service-card__overlay"></div>
               <span class="service-card__cat" data-i18n="services.catLogistics">Logistics</span>
               <span class="service-card__badge" aria-hidden="true"><svg class="icon"><use href="#icon-hazard"/></svg></span>
@@ -162,9 +175,9 @@
               <p class="service-card__desc" data-i18n="services.hazardous.desc">Specialized transport of dangerous goods with full compliance.</p>
             </div>
           </article>
-          <article class="service-card reveal" id="service-customs" style="--i:6" data-tilt="6">
+          <article class="service-card reveal" id="service-customs" style="--i:7" data-tilt="6">
             <div class="service-card__img-wrap">
-              <img src="images/photo-1554224155-8d04cb21cd6c.jpg" alt="" class="service-card__img" loading="lazy" width="600" height="375">
+              <img src="images/svc-customs.jpg" alt="" class="service-card__img" loading="lazy" width="600" height="375">
               <div class="service-card__overlay"></div>
               <span class="service-card__cat" data-i18n="services.catLogistics">Logistics</span>
               <span class="service-card__badge" aria-hidden="true"><svg class="icon"><use href="#icon-document"/></svg></span>
@@ -174,7 +187,7 @@
               <p class="service-card__desc" data-i18n="services.customs.desc">Expert customs brokerage and documentation at every border crossing.</p>
             </div>
           </article>
-          <article class="service-card reveal" id="service-warehouse" style="--i:7" data-tilt="6">
+          <article class="service-card reveal" id="service-warehouse" style="--i:8" data-tilt="6">
             <div class="service-card__img-wrap">
               <img src="images/photo-1586528116311-ad8dd3c8310d.jpg" alt="" class="service-card__img" loading="lazy" width="600" height="375">
               <div class="service-card__overlay"></div>
@@ -186,9 +199,9 @@
               <p class="service-card__desc" data-i18n="services.warehouse.desc">Secure short and long-term storage with inventory management.</p>
             </div>
           </article>
-          <article class="service-card reveal" id="service-forwarding" style="--i:8" data-tilt="6">
+          <article class="service-card reveal" id="service-forwarding" style="--i:9" data-tilt="6">
             <div class="service-card__img-wrap">
-              <img src="images/photo-1600880292203-757bb62b4baf.jpg" alt="" class="service-card__img" loading="lazy" width="600" height="375">
+              <img src="images/5e96fabb-dcbb-4376-8dfe-5683c5d33f69.jpg" alt="" class="service-card__img" loading="lazy" width="600" height="375">
               <div class="service-card__overlay"></div>
               <span class="service-card__cat" data-i18n="services.catLogistics">Logistics</span>
               <span class="service-card__badge" aria-hidden="true"><svg class="icon"><use href="#icon-route"/></svg></span>
@@ -198,9 +211,9 @@
               <p class="service-card__desc" data-i18n="services.forwarding.desc">International door-to-door forwarding with tracking and reporting.</p>
             </div>
           </article>
-          <article class="service-card reveal" id="service-heavy" style="--i:9" data-tilt="6">
+          <article class="service-card reveal" id="service-heavy" style="--i:10" data-tilt="6">
             <div class="service-card__img-wrap">
-              <img src="images/40ffdf89-4822-4955-908e-4604ac91c20d.jpg" alt="" class="service-card__img" loading="lazy" width="600" height="375">
+              <img src="images/svc-heavy-cargo.webp" alt="" class="service-card__img" loading="lazy" width="1200" height="900">
               <div class="service-card__overlay"></div>
               <span class="service-card__cat" data-i18n="services.catLogistics">Logistics</span>
               <span class="service-card__badge" aria-hidden="true"><svg class="icon"><use href="#icon-package-check"/></svg></span>
@@ -210,9 +223,9 @@
               <p class="service-card__desc" data-i18n="services.heavy.desc">Project cargo specialists for complex, oversized and heavy lifts.</p>
             </div>
           </article>
-          <article class="service-card reveal" id="service-charter" style="--i:10" data-tilt="6">
+          <article class="service-card reveal" id="service-charter" style="--i:11" data-tilt="6">
             <div class="service-card__img-wrap">
-              <img src="images/f2162315-40b9-4b13-874a-37e27acd9dc5.jpg" alt="" class="service-card__img" loading="lazy" width="600" height="375">
+              <img src="images/svc-vessel-charter.webp" alt="" class="service-card__img" loading="lazy" width="1200" height="675">
               <div class="service-card__overlay"></div>
               <span class="service-card__cat" data-i18n="services.catLogistics">Logistics</span>
               <span class="service-card__badge" aria-hidden="true"><svg class="icon"><use href="#icon-anchor"/></svg></span>
@@ -222,9 +235,9 @@
               <p class="service-card__desc" data-i18n="services.charter.desc">Single-voyage, repeat-voyage and time charters at Turkmenbashy port.</p>
             </div>
           </article>
-          <article class="service-card reveal" id="service-express" style="--i:11" data-tilt="6">
+          <article class="service-card reveal" id="service-express" style="--i:12" data-tilt="6">
             <div class="service-card__img-wrap">
-              <img src="images/photo-1568605117036-5fe5e7bab0b7.jpg" alt="" class="service-card__img" loading="lazy" width="600" height="375">
+              <img src="images/svc-express-delivery.webp" alt="" class="service-card__img" loading="lazy" width="1200" height="750">
               <div class="service-card__overlay"></div>
               <span class="service-card__cat" data-i18n="services.catLogistics">Logistics</span>
               <span class="service-card__badge" aria-hidden="true"><svg class="icon"><use href="#icon-bolt"/></svg></span>
@@ -248,7 +261,7 @@
         <div class="services__grid">
           <article class="service-card reveal" id="service-trade-export" style="--i:0" data-tilt="6">
             <div class="service-card__img-wrap">
-              <img src="images/14ebddcb-f07f-4dbf-9fb0-8083efd50073.jpg" alt="" class="service-card__img" loading="lazy" width="600" height="375">
+              <img src="images/photo-1600880292203-757bb62b4baf.jpg" alt="" class="service-card__img" loading="lazy" width="600" height="375">
               <div class="service-card__overlay"></div>
               <span class="service-card__cat service-card__cat--trading" data-i18n="services.catTrading">Trading</span>
               <span class="service-card__badge" aria-hidden="true"><svg class="icon"><use href="#icon-handshake"/></svg></span>
@@ -260,7 +273,7 @@
           </article>
           <article class="service-card reveal" id="service-trade-import" style="--i:1" data-tilt="6">
             <div class="service-card__img-wrap">
-              <img src="images/photo-1581094794329-c8112a89af12.jpg" alt="" class="service-card__img" loading="lazy" width="600" height="375">
+              <img src="images/svc-hazardous-cargo.webp" alt="" class="service-card__img" loading="lazy" width="1200" height="2138">
               <div class="service-card__overlay"></div>
               <span class="service-card__cat service-card__cat--trading" data-i18n="services.catTrading">Trading</span>
               <span class="service-card__badge" aria-hidden="true"><svg class="icon"><use href="#icon-spark"/></svg></span>
@@ -299,7 +312,7 @@
           <img src="logo/owadan-logo.png" alt="Owadan Kenar" width="48" height="48">
           <span>OWADAN KENAR</span>
         </a>
-        <p class="footer__tagline" data-i18n="footer.tagline">Your cargo. Our commitment.</p>
+        <p class="footer__tagline" data-i18n="footer.tagline">Связываем мир для вас.</p>
         <div class="footer__social">
           <a href="https://instagram.com/owadan_logistics" class="social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
             <svg width="20" height="20" aria-hidden="true"><use href="#icon-instagram"/></svg>

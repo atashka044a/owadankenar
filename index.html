@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="style.css">
   <script>
-    (function () { var l = localStorage.getItem('ok-lang'); if (l) document.documentElement.lang = l === 'tk' ? 'tk' : l; })();
+    (function () { var l = localStorage.getItem('ok-lang') || 'ru'; document.documentElement.lang = l === 'tk' ? 'tk' : l; })();
   </script>
 </head>
 <body data-page="home">
@@ -50,6 +50,7 @@
     <symbol id="icon-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></symbol>
     <symbol id="icon-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 19l-7-7 7-7"/></symbol>
     <symbol id="icon-handshake" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M11 17l2 2 6-6-6-6-2 2"/><path d="M2 14l4 4 3-3M7 11l4-4 4 4"/></symbol>
+    <symbol id="icon-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 019.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></symbol>
     <symbol id="icon-quote" viewBox="0 0 32 32" fill="currentColor"><path d="M9 18H5c0-4 2-7 6-9l1 2c-2 1-3 3-3 5h2c1 0 2 1 2 2v4c0 1-1 2-2 2H7c-1 0-2-1-2-2v-2c0-1 1-2 2-2h2zm14 0h-4c0-4 2-7 6-9l1 2c-2 1-3 3-3 5h2c1 0 2 1 2 2v4c0 1-1 2-2 2h-4c-1 0-2-1-2-2v-2c0-1 1-2 2-2h2z"/></symbol>
     <symbol id="icon-whatsapp" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></symbol>
   </svg>
@@ -57,8 +58,7 @@
   <header class="header" id="header">
     <nav class="nav container" aria-label="Main navigation">
       <a href="index.html" class="nav__logo">
-        <img src="logo/owadan-logo.png" alt="Owadan Kenar" class="nav__logo-img" width="42" height="42">
-        <span class="nav__logo-text">OWADAN KENAR</span>
+        <img src="logo/owadan-logo-full.png" alt="Owadan Kenar Logistics" class="nav__logo-img" width="107" height="66">
       </a>
       <ul class="nav__links" id="navLinks">
         <li><a href="index.html" class="nav__link active" data-i18n="nav.home">Home</a></li>
@@ -69,9 +69,9 @@
       </ul>
       <div class="nav__actions">
         <div class="lang-switcher" role="group" aria-label="Language">
-          <button type="button" class="lang-btn active" data-lang="en">EN</button>
+          <button type="button" class="lang-btn" data-lang="en">EN</button>
           <button type="button" class="lang-btn" data-lang="tk">TK</button>
-          <button type="button" class="lang-btn" data-lang="ru">RU</button>
+          <button type="button" class="lang-btn active" data-lang="ru">RU</button>
         </div>
         <a href="#quote" class="btn btn--accent nav__cta" data-i18n="nav.getQuote" data-magnetic="0.3">Get a Quote</a>
         <button type="button" class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
@@ -92,9 +92,9 @@
     </ul>
     <a href="#quote" class="btn btn--accent nav-drawer__cta" data-i18n="nav.getQuote">Get a Quote</a>
     <div class="lang-switcher lang-switcher--drawer" role="group" aria-label="Language">
-      <button type="button" class="lang-btn active" data-lang="en">EN</button>
+      <button type="button" class="lang-btn" data-lang="en">EN</button>
       <button type="button" class="lang-btn" data-lang="tk">TK</button>
-      <button type="button" class="lang-btn" data-lang="ru">RU</button>
+      <button type="button" class="lang-btn active" data-lang="ru">RU</button>
     </div>
   </aside>
 
@@ -114,12 +114,11 @@
       <span class="hero__particle"></span>
 
       <div class="container hero__content">
-        <div class="hero__eyebrow" data-i18n="hero.eyebrow">Transport · Logistics · Trading</div>
+        <div class="hero__eyebrow" data-i18n="hero.eyebrow">Международные грузоперевозки и логистика</div>
         <h1 class="hero__title" id="hero-title">
-          <span data-i18n="hero.title">International freight forwarding & logistics</span>
-          <span class="accent" data-i18n="hero.titleAccent">across Central Asia.</span>
+          <span class="accent" data-i18n="hero.titleAccent">Связываем мир для вас!</span>
         </h1>
-        <p class="hero__subtitle" data-i18n="hero.subtitle">Owadan Kenar delivers reliable transport, customs and trading solutions from Turkmenistan to the CIS, Middle East and beyond.</p>
+        <p class="hero__subtitle" data-i18n="hero.subtitle">Транспортно-логистическая и торговая компания «Owadan Kenar» — качественные перевозки, карго и складские услуги из Туркменистана в страны СНГ и по всему миру.</p>
         <div class="hero__actions">
           <a href="#quote" class="btn btn--accent btn--lg" data-i18n="hero.ctaQuote" data-magnetic="0.25">Get an online quote</a>
           <a href="services.html" class="btn btn--outline btn--lg" data-i18n="hero.ctaServices">Our services</a>
@@ -227,57 +226,71 @@
     <section class="services section" id="services-preview" aria-labelledby="services-title">
       <div class="container">
         <header class="section__header reveal">
-          <span class="eyebrow" data-i18n="services.eyebrow">What we do</span>
-          <h2 class="section__title" id="services-title"><span data-i18n="services.titleLead">End-to-end</span> <span class="accent" data-i18n="services.titleAccent">logistics</span></h2>
-          <p class="section__subtitle" data-i18n="services.subtitle">End-to-end logistics tailored to your business — fast, safe and accountable.</p>
+          <span class="eyebrow" data-i18n="services.eyebrow">Наши услуги</span>
+          <h2 class="section__title" id="services-title"><span data-i18n="services.titleLead">Комплексная</span> <span class="accent" data-i18n="services.titleAccent">логистика</span></h2>
+          <p class="section__subtitle" data-i18n="services.subtitle">Международные перевозки, услуги карго и складские услуги — под задачи вашего бизнеса.</p>
         </header>
         <div class="services__grid">
-          <article class="service-card reveal" style="--i:0" data-tilt="6">
+          <article class="service-card service-card--premium reveal" style="--i:0" data-tilt="6">
+            <a href="perishable.html" class="service-card__hit" data-i18n-aria="services.learnMore" aria-label="Learn more"></a>
+            <div class="service-card__img-wrap">
+              <img src="images/perish-tomato-vine.webp" alt="" class="service-card__img" loading="lazy" width="1200" height="800">
+              <div class="service-card__overlay"></div>
+              <span class="service-card__cat service-card__cat--perish" data-i18n="perishable.badge">Premium Service</span>
+              <span class="service-card__badge" aria-hidden="true"><svg class="icon"><use href="#icon-leaf"/></svg></span>
+            </div>
+            <div class="service-card__body">
+              <h3 class="service-card__title" data-i18n="perishable.card.title">Perishable Products</h3>
+              <p class="service-card__desc" data-i18n="perishable.card.short">Fresh produce &amp; tomato export.</p>
+              <span class="service-card__more" data-i18n="services.learnMore">Learn more</span>
+            </div>
+          </article>
+          <article class="service-card reveal" style="--i:1" data-tilt="6">
+            <a href="services.html#service-forwarding" class="service-card__hit" data-i18n-aria="services.learnMore" aria-label="Learn more"></a>
+            <div class="service-card__img-wrap">
+              <img src="images/svc-container-terminal.webp" alt="" class="service-card__img" loading="lazy" width="1200" height="800">
+              <div class="service-card__overlay"></div>
+              <span class="service-card__cat" data-i18n="services.catLogistics">Logistics</span>
+              <span class="service-card__badge" aria-hidden="true"><svg class="icon"><use href="#icon-globe"/></svg></span>
+            </div>
+            <div class="service-card__body">
+              <h3 class="service-card__title" data-i18n="services.featured.intl.title">Международные перевозки</h3>
+              <p class="service-card__desc" data-i18n="services.featured.intl.short">Авто, ж/д, морские и авиа перевозки по всему миру.</p>
+              <span class="service-card__more" data-i18n="services.learnMore">Learn more</span>
+            </div>
+          </article>
+          <article class="service-card reveal" style="--i:2" data-tilt="6">
             <a href="services.html#service-container" class="service-card__hit" data-i18n-aria="services.learnMore" aria-label="Learn more"></a>
             <div class="service-card__img-wrap">
-              <img src="images/photo-1580674285054-bed31e145f59.jpg" alt="" class="service-card__img" loading="lazy" width="600" height="375">
+              <img src="images/svc-container-terminal.webp" alt="" class="service-card__img" loading="lazy" width="1200" height="800">
               <div class="service-card__overlay"></div>
               <span class="service-card__cat" data-i18n="services.catLogistics">Logistics</span>
               <span class="service-card__badge" aria-hidden="true"><svg class="icon"><use href="#icon-container"/></svg></span>
             </div>
             <div class="service-card__body">
-              <h3 class="service-card__title" data-i18n="services.container.title">Container transport</h3>
-              <p class="service-card__desc" data-i18n="services.container.short">Container shipping &amp; handling.</p>
-              <span class="service-card__more" data-i18n="services.learnMore">Learn more</span>
-            </div>
-          </article>
-          <article class="service-card reveal" style="--i:1" data-tilt="6">
-            <a href="services.html#service-road" class="service-card__hit" data-i18n-aria="services.learnMore" aria-label="Learn more"></a>
-            <div class="service-card__img-wrap">
-              <img src="images/photo-1519003722824-194d4455a60c.jpg" alt="" class="service-card__img" loading="lazy" width="600" height="375">
-              <div class="service-card__overlay"></div>
-              <span class="service-card__cat" data-i18n="services.catLogistics">Logistics</span>
-              <span class="service-card__badge" aria-hidden="true"><svg class="icon"><use href="#icon-truck"/></svg></span>
-            </div>
-            <div class="service-card__body">
-              <h3 class="service-card__title" data-i18n="services.road.title">Road freight</h3>
-              <p class="service-card__desc" data-i18n="services.road.short">Full-load and groupage trucking.</p>
-              <span class="service-card__more" data-i18n="services.learnMore">Learn more</span>
-            </div>
-          </article>
-          <article class="service-card reveal" style="--i:2" data-tilt="6">
-            <a href="services.html#service-rail" class="service-card__hit" data-i18n-aria="services.learnMore" aria-label="Learn more"></a>
-            <div class="service-card__img-wrap">
-              <img src="images/photo-1474487548417-781cb71495f3.jpg" alt="" class="service-card__img" loading="lazy" width="600" height="375">
-              <div class="service-card__overlay"></div>
-              <span class="service-card__cat" data-i18n="services.catLogistics">Logistics</span>
-              <span class="service-card__badge" aria-hidden="true"><svg class="icon"><use href="#icon-train"/></svg></span>
-            </div>
-            <div class="service-card__body">
-              <h3 class="service-card__title" data-i18n="services.rail.title">Rail transport</h3>
-              <p class="service-card__desc" data-i18n="services.rail.short">Rail freight across CIS and Europe.</p>
+              <h3 class="service-card__title" data-i18n="services.featured.cargo.title">Услуги карго</h3>
+              <p class="service-card__desc" data-i18n="services.featured.cargo.short">Полные и сборные грузы, контейнеры и мультимодальные перевозки.</p>
               <span class="service-card__more" data-i18n="services.learnMore">Learn more</span>
             </div>
           </article>
           <article class="service-card reveal" style="--i:3" data-tilt="6">
+            <a href="services.html#service-warehouse" class="service-card__hit" data-i18n-aria="services.learnMore" aria-label="Learn more"></a>
+            <div class="service-card__img-wrap">
+              <img src="images/photo-1586528116311-ad8dd3c8310d.jpg" alt="" class="service-card__img" loading="lazy" width="600" height="375">
+              <div class="service-card__overlay"></div>
+              <span class="service-card__cat" data-i18n="services.catLogistics">Logistics</span>
+              <span class="service-card__badge" aria-hidden="true"><svg class="icon"><use href="#icon-warehouse"/></svg></span>
+            </div>
+            <div class="service-card__body">
+              <h3 class="service-card__title" data-i18n="services.featured.warehouse.title">Складские услуги</h3>
+              <p class="service-card__desc" data-i18n="services.featured.warehouse.short">Безопасное хранение, кросс-докинг и управление запасами.</p>
+              <span class="service-card__more" data-i18n="services.learnMore">Learn more</span>
+            </div>
+          </article>
+          <article class="service-card reveal" style="--i:4" data-tilt="6">
             <a href="services.html#service-sea" class="service-card__hit" data-i18n-aria="services.learnMore" aria-label="Learn more"></a>
             <div class="service-card__img-wrap">
-              <img src="images/photo-1712578585447-2bab142270b0.jpg" alt="" class="service-card__img" loading="lazy" width="600" height="375">
+              <img src="images/svc-sea-freight.webp" alt="" class="service-card__img" loading="lazy" width="1200" height="675">
               <div class="service-card__overlay"></div>
               <span class="service-card__cat" data-i18n="services.catLogistics">Logistics</span>
               <span class="service-card__badge" aria-hidden="true"><svg class="icon"><use href="#icon-ship"/></svg></span>
@@ -288,10 +301,10 @@
               <span class="service-card__more" data-i18n="services.learnMore">Learn more</span>
             </div>
           </article>
-          <article class="service-card reveal" style="--i:4" data-tilt="6">
+          <article class="service-card reveal" style="--i:5" data-tilt="6">
             <a href="services.html#service-air" class="service-card__hit" data-i18n-aria="services.learnMore" aria-label="Learn more"></a>
             <div class="service-card__img-wrap">
-              <img src="images/photo-1436491865332-7a61a109cc05.jpg" alt="" class="service-card__img" loading="lazy" width="600" height="375">
+              <img src="images/svc-air.webp" alt="" class="service-card__img" loading="lazy" width="1200" height="1200">
               <div class="service-card__overlay"></div>
               <span class="service-card__cat" data-i18n="services.catLogistics">Logistics</span>
               <span class="service-card__badge" aria-hidden="true"><svg class="icon"><use href="#icon-plane"/></svg></span>
@@ -302,10 +315,10 @@
               <span class="service-card__more" data-i18n="services.learnMore">Learn more</span>
             </div>
           </article>
-          <article class="service-card reveal" style="--i:5" data-tilt="6">
+          <article class="service-card reveal" style="--i:6" data-tilt="6">
             <a href="services.html#service-trade-export" class="service-card__hit" data-i18n-aria="services.learnMore" aria-label="Learn more"></a>
             <div class="service-card__img-wrap">
-              <img src="images/photo-1554224155-8d04cb21cd6c.jpg" alt="" class="service-card__img" loading="lazy" width="600" height="375">
+              <img src="images/photo-1600880292203-757bb62b4baf.jpg" alt="" class="service-card__img" loading="lazy" width="600" height="375">
               <div class="service-card__overlay"></div>
               <span class="service-card__cat service-card__cat--trading" data-i18n="services.catTrading">Trading</span>
               <span class="service-card__badge" aria-hidden="true"><svg class="icon"><use href="#icon-handshake"/></svg></span>
@@ -333,66 +346,21 @@
             <h2 class="section__title section__title--light" id="routes-title"><span data-i18n="routes.title">A network that reaches across borders</span></h2>
             <p class="section__subtitle section__subtitle--light" style="margin-inline:0" data-i18n="routes.subtitle">Headquartered in Ashgabat, working across the CIS, Caspian, Middle East and Türkiye.</p>
             <ul class="routes__points">
-              <li class="routes__point"><span class="routes__point-dot"></span><span data-i18n="routes.points.ashgabat">Ashgabat — HQ</span></li>
-              <li class="routes__point"><span class="routes__point-dot"></span><span data-i18n="routes.points.turkmenbashy">Turkmenbashy port</span></li>
-              <li class="routes__point"><span class="routes__point-dot"></span><span data-i18n="routes.points.almaty">Almaty</span></li>
-              <li class="routes__point"><span class="routes__point-dot"></span><span data-i18n="routes.points.baku">Baku</span></li>
-              <li class="routes__point"><span class="routes__point-dot"></span><span data-i18n="routes.points.istanbul">Istanbul</span></li>
-              <li class="routes__point"><span class="routes__point-dot"></span><span data-i18n="routes.points.dubai">Dubai</span></li>
+              <li class="routes__point routes__point--hq" data-country="TM"><span class="routes__point-dot"></span><span data-i18n="routes.points.hq">Ashgabat</span></li>
+              <li class="routes__point" data-country="RU"><span class="routes__point-dot"></span><span data-i18n="routes.points.russia">Russia</span></li>
+              <li class="routes__point" data-country="BY"><span class="routes__point-dot"></span><span data-i18n="routes.points.belarus">Belarus</span></li>
+              <li class="routes__point" data-country="KZ"><span class="routes__point-dot"></span><span data-i18n="routes.points.kazakhstan">Kazakhstan</span></li>
+              <li class="routes__point" data-country="UZ"><span class="routes__point-dot"></span><span data-i18n="routes.points.uzbekistan">Uzbekistan</span></li>
+              <li class="routes__point" data-country="TR"><span class="routes__point-dot"></span><span data-i18n="routes.points.turkey">Turkey</span></li>
+              <li class="routes__point" data-country="GE"><span class="routes__point-dot"></span><span data-i18n="routes.points.georgia">Georgia</span></li>
+              <li class="routes__point" data-country="AZ"><span class="routes__point-dot"></span><span data-i18n="routes.points.azerbaijan">Azerbaijan</span></li>
+              <li class="routes__point" data-country="AE"><span class="routes__point-dot"></span><span data-i18n="routes.points.uae">Dubai (UAE)</span></li>
+              <li class="routes__point" data-country="CN"><span class="routes__point-dot"></span><span data-i18n="routes.points.china">China</span></li>
+              <li class="routes__point" data-country="VN"><span class="routes__point-dot"></span><span data-i18n="routes.points.vietnam">Vietnam</span></li>
+              <li class="routes__point" data-country="MY"><span class="routes__point-dot"></span><span data-i18n="routes.points.malaysia">Malaysia</span></li>
             </ul>
           </div>
-          <div class="routes__map reveal-right" aria-hidden="true">
-            <svg viewBox="0 0 600 380" xmlns="http://www.w3.org/2000/svg">
-              <!-- Simplified continent silhouettes -->
-              <path class="map__continent" d="M40 140 Q70 110 120 120 T220 110 Q260 100 300 115 T380 110 Q430 115 480 130 T560 140 L560 230 Q510 240 460 235 T380 240 Q330 245 280 235 T180 240 Q120 235 70 225 T40 220 Z"/>
-              <path class="map__continent" d="M120 240 Q160 235 210 245 T300 250 Q360 252 410 245 T500 240 L500 300 Q450 308 400 305 T310 305 Q260 302 200 305 T120 300 Z"/>
-
-              <!-- Routes (animated dashes) -->
-              <path class="map__path" d="M180 220 Q220 130 300 150" />
-              <path class="map__path" d="M300 150 Q360 140 420 130" />
-              <path class="map__path" d="M300 150 Q260 200 200 240" />
-              <path class="map__path" d="M300 150 Q380 200 440 240" />
-              <path class="map__path" d="M300 150 Q220 80 140 130" />
-
-              <!-- HQ Ashgabat (accent) -->
-              <g transform="translate(300 150)">
-                <circle class="map__pulse-ring" r="8"/>
-                <circle class="map__pulse map__pulse--accent" r="6"/>
-              </g>
-              <text class="map__label" x="312" y="146">Ashgabat</text>
-
-              <!-- Other points -->
-              <g transform="translate(180 220)">
-                <circle class="map__pulse-ring" r="6"/>
-                <circle class="map__pulse" r="4.5"/>
-              </g>
-              <text class="map__label" x="188" y="237">Turkmenbashy</text>
-
-              <g transform="translate(420 130)">
-                <circle class="map__pulse-ring" r="6"/>
-                <circle class="map__pulse" r="4.5"/>
-              </g>
-              <text class="map__label" x="430" y="126">Almaty</text>
-
-              <g transform="translate(200 240)">
-                <circle class="map__pulse-ring" r="6"/>
-                <circle class="map__pulse" r="4.5"/>
-              </g>
-              <text class="map__label" x="208" y="258">Baku</text>
-
-              <g transform="translate(140 130)">
-                <circle class="map__pulse-ring" r="6"/>
-                <circle class="map__pulse" r="4.5"/>
-              </g>
-              <text class="map__label" x="78" y="124">Istanbul</text>
-
-              <g transform="translate(440 240)">
-                <circle class="map__pulse-ring" r="6"/>
-                <circle class="map__pulse" r="4.5"/>
-              </g>
-              <text class="map__label" x="450" y="258">Dubai</text>
-            </svg>
-          </div>
+          <div class="routes__map reveal-right" id="worldMap" aria-hidden="true"></div>
         </div>
       </div>
     </section>
@@ -404,7 +372,7 @@
           <span class="eyebrow" data-i18n="about.tag">Our story</span>
           <h2 class="section__title" id="about-title"><span data-i18n="about.title">About Owadan Kenar</span></h2>
           <p class="about__text" data-i18n="about.lead">Owadan Kenar is a transport, logistics and trading company based in Ashgabat.</p>
-          <p class="about__slogan" data-i18n="about.slogan">Your goods are in safe hands.</p>
+          <p class="about__slogan" data-i18n="about.slogan">Ваш груз — наша забота!</p>
           <ul class="about__list">
             <li class="about__item">
               <svg class="about__check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -438,7 +406,7 @@
           <a href="about.html" class="btn btn--ghost" data-i18n="home.readMore">Learn more</a>
         </div>
         <div class="about__visual reveal-right">
-          <img src="images/db9d7214-21df-4416-b814-dc97725f42fe.jpg" alt="Owadan Kenar operations" class="about__img" loading="lazy" width="900" height="600">
+          <img src="images/db9d7214-21df-4416-b814-dc97725f42fe.jpg" alt="Owadan Kenar Logistics" class="about__img about__img--brand" loading="lazy" width="2332" height="1528">
         </div>
       </div>
     </section>
@@ -646,7 +614,7 @@
           <img src="logo/owadan-logo.png" alt="Owadan Kenar" width="48" height="48">
           <span>OWADAN KENAR</span>
         </a>
-        <p class="footer__tagline" data-i18n="footer.tagline">Your cargo. Our commitment. Delivering excellence across Turkmenistan and beyond.</p>
+        <p class="footer__tagline" data-i18n="footer.tagline">Связываем мир для вас.</p>
         <div class="footer__social">
           <a href="https://instagram.com/owadan_logistics" class="social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
             <svg width="20" height="20" aria-hidden="true"><use href="#icon-instagram"/></svg>

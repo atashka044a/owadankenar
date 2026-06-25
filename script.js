@@ -8,9 +8,6 @@
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---------- Stats counter ---------- */
-  const statsSection = document.getElementById('stats');
-  const statNumbers = document.querySelectorAll('.stat__number');
-
   function easeOutQuart(t) { return 1 - Math.pow(1 - t, 4); }
 
   function animateCounter(el) {
@@ -26,12 +23,17 @@
     requestAnimationFrame(tick);
   }
 
-  if (statsSection && statNumbers.length) {
+  function initStatCounters(sectionId, selector) {
+    const section = document.getElementById(sectionId);
+    const numbers = section ? section.querySelectorAll(selector) : [];
+    if (!section || !numbers.length) return;
+
     const obs = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
-          statNumbers.forEach((el) => {
+          numbers.forEach((el) => {
+            if (el.dataset.display) return;
             if (prefersReducedMotion) {
               el.textContent = el.dataset.target + (el.dataset.suffix || '');
             } else {
@@ -43,8 +45,11 @@
       },
       { threshold: 0.5 }
     );
-    obs.observe(statsSection);
+    obs.observe(section);
   }
+
+  initStatCounters('stats', '.stat__number');
+  initStatCounters('perish-stats', '.perish-stat__number');
 
   /* ---------- Section spy ---------- */
   const sections = document.querySelectorAll('section[id]');
@@ -135,6 +140,127 @@
     start();
   }
   initTestimonials();
+
+  /* ---------- World map (coverage section) ---------- */
+  function initWorldMap() {
+    const host = document.getElementById('worldMap');
+    if (!host) return;
+
+    /* Mercator metadata of images/world-map.svg (amCharts worldLow) */
+    const MAP = { left: -169.6, right: 190.25, top: 83.68, bottom: -55.55 };
+    /* Region of the world to display */
+    const CROP = { lonMin: -18, lonMax: 150, latMin: -12, latMax: 72 };
+
+    const POINTS = [
+      { id: 'TM', key: 'hq',         lat: 37.95, lon: 58.38,  hq: true, label: 'right' },
+      { id: 'RU', key: 'russia',     lat: 55.75, lon: 37.62,  label: 'top' },
+      { id: 'BY', key: 'belarus',    lat: 53.90, lon: 27.56,  label: 'left' },
+      { id: 'KZ', key: 'kazakhstan', lat: 48.00, lon: 68.00,  label: 'top' },
+      { id: 'UZ', key: 'uzbekistan', lat: 41.31, lon: 69.28,  label: 'right' },
+      { id: 'TR', key: 'turkey',     lat: 39.00, lon: 32.85,  label: 'left' },
+      { id: 'GE', key: 'georgia',    lat: 41.72, lon: 44.78,  label: 'top' },
+      { id: 'AZ', key: 'azerbaijan', lat: 40.41, lon: 49.87,  label: 'bottom' },
+      { id: 'AE', key: 'uae',        lat: 25.20, lon: 55.27,  label: 'bottom' },
+      { id: 'CN', key: 'china',      lat: 35.00, lon: 103.00, label: 'top' },
+      { id: 'VN', key: 'vietnam',    lat: 14.00, lon: 108.00, label: 'right' },
+      { id: 'MY', key: 'malaysia',   lat: 3.14,  lon: 101.69, label: 'right' }
+    ];
+
+    const mercX = (lon) => (lon * Math.PI) / 180;
+    const mercY = (lat) => Math.log(Math.tan(Math.PI / 4 + (lat * Math.PI) / 360));
+
+    fetch('images/world-map.svg')
+      .then((res) => (res.ok ? res.text() : Promise.reject()))
+      .then((text) => {
+        const doc = new DOMParser().parseFromString(text, 'image/svg+xml');
+        const NS = 'http://www.w3.org/2000/svg';
+        const svg = document.createElementNS(NS, 'svg');
+        svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+        svg.classList.add('wmap');
+
+        const gLand = document.createElementNS(NS, 'g');
+        const countryEls = {};
+        doc.querySelectorAll('path.land').forEach((p) => {
+          const node = p.cloneNode(true);
+          const code = node.getAttribute('id');
+          node.removeAttribute('id');
+          if (code) {
+            node.dataset.c = code;
+            countryEls[code] = node;
+          }
+          gLand.appendChild(node);
+        });
+        svg.appendChild(gLand);
+        host.appendChild(svg);
+
+        /* Pixel bounds of the full map → project lon/lat into svg coords */
+        const bb = gLand.getBBox();
+        const fx = (lon) => bb.x + ((mercX(lon) - mercX(MAP.left)) / (mercX(MAP.right) - mercX(MAP.left))) * bb.width;
+        const fy = (lat) => bb.y + ((mercY(MAP.top) - mercY(lat)) / (mercY(MAP.top) - mercY(MAP.bottom))) * bb.height;
+
+        const cx1 = fx(CROP.lonMin), cx2 = fx(CROP.lonMax);
+        const cy1 = fy(CROP.latMax), cy2 = fy(CROP.latMin);
+        const cw = cx2 - cx1, ch = cy2 - cy1;
+        svg.setAttribute('viewBox', `${cx1} ${cy1} ${cw} ${ch}`);
+        host.style.aspectRatio = `${cw} / ${ch}`;
+
+        /* Highlight covered countries */
+        POINTS.forEach((p) => {
+          const el = countryEls[p.id];
+          if (!el) return;
+          el.classList.add('wmap__country');
+          if (p.hq) el.classList.add('wmap__country--hq');
+        });
+
+        /* Animated route arcs from HQ to every destination */
+        const hq = POINTS.find((p) => p.hq);
+        const hqX = fx(hq.lon), hqY = fy(hq.lat);
+        const gRoutes = document.createElementNS(NS, 'g');
+        POINTS.filter((p) => !p.hq).forEach((p) => {
+          const x = fx(p.lon), y = fy(p.lat);
+          const mx = (hqX + x) / 2;
+          const my = Math.min(hqY, y) - Math.abs(x - hqX) * 0.18 - cw * 0.012;
+          const path = document.createElementNS(NS, 'path');
+          path.setAttribute('d', `M ${hqX} ${hqY} Q ${mx} ${my} ${x} ${y}`);
+          path.classList.add('wmap__route');
+          path.style.strokeWidth = (cw / 420).toFixed(2);
+          gRoutes.appendChild(path);
+        });
+        svg.appendChild(gRoutes);
+
+        /* HTML markers positioned in % of the cropped view */
+        const dict = I18N[App.getLang()] || I18N.en;
+        const markers = {};
+        POINTS.forEach((p, i) => {
+          const m = document.createElement('div');
+          m.className = `wmap-marker wmap-marker--label-${p.label}${p.hq ? ' wmap-marker--hq' : ''}`;
+          m.style.left = (((fx(p.lon) - cx1) / cw) * 100).toFixed(2) + '%';
+          m.style.top = (((fy(p.lat) - cy1) / ch) * 100).toFixed(2) + '%';
+          m.style.setProperty('--i', i);
+          m.dataset.country = p.id;
+          const fallback = i18nGet(dict, 'routes.points.' + p.key) || i18nGet(I18N.en, 'routes.points.' + p.key);
+          m.innerHTML =
+            '<span class="wmap-marker__ring"></span>' +
+            '<span class="wmap-marker__dot"></span>' +
+            `<span class="wmap-marker__label" data-i18n="routes.points.${p.key}">${fallback || ''}</span>`;
+          host.appendChild(m);
+          markers[p.id] = m;
+        });
+
+        /* Hover sync: list item ⇄ map country + marker */
+        document.querySelectorAll('.routes__point[data-country]').forEach((item) => {
+          const code = item.dataset.country;
+          const toggle = (on) => {
+            countryEls[code]?.classList.toggle('is-hover', on);
+            markers[code]?.classList.toggle('is-hover', on);
+          };
+          item.addEventListener('mouseenter', () => toggle(true));
+          item.addEventListener('mouseleave', () => toggle(false));
+        });
+      })
+      .catch(() => {});
+  }
+  initWorldMap();
 
   /* ---------- Contact form ---------- */
   function showToast(el, key, type) {

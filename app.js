@@ -8,7 +8,7 @@ const App = (function () {
   'use strict';
 
   const STORAGE_KEY = 'ok-lang';
-  const DEFAULT_LANG = 'en';
+  const DEFAULT_LANG = 'ru';
   let currentLang = DEFAULT_LANG;
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
