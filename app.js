@@ -309,7 +309,7 @@ const App = (function () {
   /* ---------- Icon sprite (fallback fetch if not inline) ---------- */
   function injectIconSprite() {
     const existing = document.getElementById('ok-icon-sprite');
-    if (existing && existing.querySelector('#icon-handshake')) return;
+    if (existing && (existing.querySelector('#icon-handshake') || existing.querySelector('symbol#icon-handshake'))) return;
     if (existing && !existing.querySelector('#icon-handshake')) {
       fetch('icons.svg')
         .then((res) => (res.ok ? res.text() : Promise.reject()))

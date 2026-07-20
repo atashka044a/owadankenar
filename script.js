@@ -11,13 +11,15 @@
   function easeOutQuart(t) { return 1 - Math.pow(1 - t, 4); }
 
   function animateCounter(el) {
-    const target = parseInt(el.dataset.target, 10);
+    const target = parseFloat(el.dataset.target);
     const suffix = el.dataset.suffix || '';
+    const isDecimal = String(el.dataset.target).includes('.');
     const duration = 1800;
     const start = performance.now();
     function tick(now) {
       const progress = Math.min((now - start) / duration, 1);
-      el.textContent = Math.round(easeOutQuart(progress) * target) + suffix;
+      const value = easeOutQuart(progress) * target;
+      el.textContent = (isDecimal ? value.toFixed(1) : Math.round(value)) + suffix;
       if (progress < 1) requestAnimationFrame(tick);
     }
     requestAnimationFrame(tick);
@@ -144,7 +146,7 @@
   /* ---------- World map (coverage section) ---------- */
   function initWorldMap() {
     const host = document.getElementById('worldMap');
-    if (!host) return;
+    if (!host || host.dataset.mapReady === '1') return;
 
     /* Mercator metadata of images/world-map.svg (amCharts worldLow) */
     const MAP = { left: -169.6, right: 190.25, top: 83.68, bottom: -55.55 };
@@ -169,42 +171,57 @@
     const mercX = (lon) => (lon * Math.PI) / 180;
     const mercY = (lat) => Math.log(Math.tan(Math.PI / 4 + (lat * Math.PI) / 360));
 
-    fetch('images/world-map.svg')
-      .then((res) => (res.ok ? res.text() : Promise.reject()))
-      .then((text) => {
-        const doc = new DOMParser().parseFromString(text, 'image/svg+xml');
-        const NS = 'http://www.w3.org/2000/svg';
-        const svg = document.createElementNS(NS, 'svg');
-        svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
-        svg.classList.add('wmap');
+    function loadMapSvgText() {
+      const inline = document.getElementById('world-map-data');
+      if (inline) {
+        const svg = inline.querySelector('svg');
+        let text = svg ? svg.outerHTML : inline.innerHTML.trim();
+        text = text.replace(/^\uFEFF/, '').replace(/<\?xml[^?]*\?>\s*/i, '');
+        return Promise.resolve(text);
+      }
+      const mapUrl = new URL('images/world-map.svg', document.baseURI).href;
+      return fetch(mapUrl).then((res) => (res.ok ? res.text() : Promise.reject()));
+    }
 
-        const gLand = document.createElementNS(NS, 'g');
-        const countryEls = {};
-        doc.querySelectorAll('path.land').forEach((p) => {
-          const node = p.cloneNode(true);
-          const code = node.getAttribute('id');
-          node.removeAttribute('id');
-          if (code) {
-            node.dataset.c = code;
-            countryEls[code] = node;
-          }
-          gLand.appendChild(node);
-        });
-        svg.appendChild(gLand);
-        host.appendChild(svg);
+    function renderMap(text) {
+      const doc = new DOMParser().parseFromString(text, 'image/svg+xml');
+      const NS = 'http://www.w3.org/2000/svg';
+      const svg = document.createElementNS(NS, 'svg');
+      svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+      svg.classList.add('wmap');
 
-        /* Pixel bounds of the full map → project lon/lat into svg coords */
+      const gLand = document.createElementNS(NS, 'g');
+      const countryEls = {};
+      doc.querySelectorAll('path.land').forEach((p) => {
+        const node = p.cloneNode(true);
+        const code = node.getAttribute('id');
+        node.removeAttribute('id');
+        if (code) {
+          node.dataset.c = code;
+          countryEls[code] = node;
+        }
+        gLand.appendChild(node);
+      });
+      if (!gLand.childNodes.length) return;
+      svg.appendChild(gLand);
+      host.textContent = '';
+      host.appendChild(svg);
+
+      requestAnimationFrame(() => {
         const bb = gLand.getBBox();
+        if (!bb.width || !bb.height) return;
+
         const fx = (lon) => bb.x + ((mercX(lon) - mercX(MAP.left)) / (mercX(MAP.right) - mercX(MAP.left))) * bb.width;
         const fy = (lat) => bb.y + ((mercY(MAP.top) - mercY(lat)) / (mercY(MAP.top) - mercY(MAP.bottom))) * bb.height;
 
         const cx1 = fx(CROP.lonMin), cx2 = fx(CROP.lonMax);
         const cy1 = fy(CROP.latMax), cy2 = fy(CROP.latMin);
         const cw = cx2 - cx1, ch = cy2 - cy1;
+        if (!cw || !ch) return;
+
         svg.setAttribute('viewBox', `${cx1} ${cy1} ${cw} ${ch}`);
         host.style.aspectRatio = `${cw} / ${ch}`;
 
-        /* Highlight covered countries */
         POINTS.forEach((p) => {
           const el = countryEls[p.id];
           if (!el) return;
@@ -212,8 +229,8 @@
           if (p.hq) el.classList.add('wmap__country--hq');
         });
 
-        /* Animated route arcs from HQ to every destination */
         const hq = POINTS.find((p) => p.hq);
+        if (!hq) return;
         const hqX = fx(hq.lon), hqY = fy(hq.lat);
         const gRoutes = document.createElementNS(NS, 'g');
         POINTS.filter((p) => !p.hq).forEach((p) => {
@@ -228,7 +245,6 @@
         });
         svg.appendChild(gRoutes);
 
-        /* HTML markers positioned in % of the cropped view */
         const dict = I18N[App.getLang()] || I18N.en;
         const markers = {};
         POINTS.forEach((p, i) => {
@@ -247,7 +263,6 @@
           markers[p.id] = m;
         });
 
-        /* Hover sync: list item ⇄ map country + marker */
         document.querySelectorAll('.routes__point[data-country]').forEach((item) => {
           const code = item.dataset.country;
           const toggle = (on) => {
@@ -257,8 +272,14 @@
           item.addEventListener('mouseenter', () => toggle(true));
           item.addEventListener('mouseleave', () => toggle(false));
         });
-      })
-      .catch(() => {});
+
+        host.dataset.mapReady = '1';
+      });
+    }
+
+    loadMapSvgText().then(renderMap).catch(() => {
+      host.classList.add('routes__map--error');
+    });
   }
   initWorldMap();
 

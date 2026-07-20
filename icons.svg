@@ -18,7 +18,7 @@
     <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
   </symbol>
   <symbol id="icon-headset" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M3 11v2a2 2 0 002 2h1v-6H5a2 2 0 00-2 2z"/><path d="M21 11v2a2 2 0 01-2 2h-1v-6h1a2 2 0 012 2z"/><path d="M7 11v4a5 5 0 0010 0v-4"/>
+    <path d="M3 11v2a2 2 0 0 0 2 2h1"/><path d="M21 11v2a2 2 0 0 1-2 2h-1"/><path d="M7 11v4a5 5 0 0 0 10 0v-4"/>
   </symbol>
   <symbol id="icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
     <path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><circle cx="7" cy="7" r="1.5"/>

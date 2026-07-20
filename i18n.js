@@ -404,7 +404,8 @@ const I18N = {
         peppers: 'Peppers',
         onions: 'Onions',
         grapes: 'Grapes',
-        apples: 'Apples'
+        apples: 'Apples',
+        cherries: 'Cherry'
       },
       stats: {
         countries: 'Countries Served',
@@ -447,9 +448,9 @@ const I18N = {
       aboutTitle: 'Biz barada — Owadan Kenar',
       aboutDesc: 'Owadan Kenar — Türkmenistanda transport, logistika we s\u00f6wda boýunça ygtybarly hyzmatda\u015fy\u0148yz.',
       contactTitle: 'Habarla\u015fmak — Owadan Kenar',
-      contactDesc: 'Owadan Kenar bilen habarla\u015fy\u0148 — nyrh aly\u0148, jakla\u0148, WhatsApp ýa-da Instagram.',
+      contactDesc: 'Owadan Kenar bilen habarla\u015fy\u0148 — nyrh aly\u0148, habarlaşmak, WhatsApp ýa-da Instagram.',
       perishableTitle: 'Çalt bozulýan önümler — Täze önüm eksporty | Owadan Kenar',
-      perishableDesc: 'Täze miwe-we gök önümleriň halkara temperatura dolandyrylan daşamagy we eksporty. Pomidor eksporty boýunça premium logistika.'
+      perishableDesc: 'Täze miwe we gök önümleriň halkara eksporty. Pomidor eksporty boýunça premium logistika.'
     },
     nav: {
       home: 'Ba\u015f sahypa',
@@ -458,7 +459,7 @@ const I18N = {
       whyUs: 'N\u00e4me \u00fc\u00e7in biz',
       contact: 'Habarla\u015fmak',
       getQuote: 'Nyrh almak',
-      callUs: 'Jakla\u0148',
+      callUs: 'Jaň',
       openMenu: 'Menýuny a\u00e7',
       closeMenu: 'Menýuny ýap',
       langLabel: 'Dil'
@@ -770,9 +771,9 @@ const I18N = {
     },
     footer: {
       tagline: 'D\u00fcny\u00e4ni sizi\u0148 \u00fc\u00e7in bagl\u00fdarys.',
-      quickLinks: 'Çalt baglany\u015flar',
+      quickLinks: 'Esasy sahypalar',
       contact: 'Aragatna\u015fyk',
-      followUs: 'Yzarla',
+      followUs: 'Sosial media',
       rights: '\u00a9 2025 Owadan Kenar. \u00c4hli hukuklar goralan.',
       builtIn: 'A\u015fgabatda ýerle\u015fýär'
     },
@@ -792,7 +793,7 @@ const I18N = {
       breadcrumb: 'Çalt bozulýan önümler',
       badge: 'Premium hyzmat',
       hero: {
-        title: 'Çalt bozulýan önümleriň daşamagy',
+        title: 'Çalt bozulýan önümleriň eksporty',
         subtitle: 'Täze önümleriň halkara çalt, ygtybarly we temperatura dolandyrylan eltip bermegi',
         cta: 'Nyrh soramak',
         ctaProcess: 'Prosesimizi görüň'
@@ -804,10 +805,10 @@ const I18N = {
       },
       about: {
         eyebrow: 'Täze önüm logistikasy',
-        titleLead: 'Temperatura dolandyrylan',
+        titleLead: 'Temperatura yzarlanyar',
         titleAccent: 'eksport hilçiligi',
         text1: 'Owadan Kenar t\u00e4ze miwe-we g\u00f6k \u00f6n\u00fcmleri\u0148 halkara da\u015famagy we eksporty bo\u00fdun\u00e7a h\u00fcn\u00e4rmendir \u2014 \u00f6n\u00fcmi\u0148 hilini doly g\u00f6zeg\u00e7ilikde saklan\u00fdan sowuk zynjyry arkaly \u00fcpj\u00fcn ed\u00fd\u00e4ris.',
-        text2: 'Esasy hyzmatymyz \u2014 t\u00e4ze pomidor eksporty: sortirlemek, gaplamak, sowadyjy awtoulaglar, de\u0148iz we howa \u00fd\u00fckleri we g\u00fcmr\u00fck i\u015fleri bilen d\u00fcny\u00e4 bo\u00fdun\u00e7a opt we distrib\u00fd\u00fdutorlar \u00fc\u00e7in hyzmat.',
+        text2: 'Esasy hyzmatymyz \u2014 t\u00e4ze pomidor eksporty: yerleşdirmek, gaplamak, sowadyjy awtoulaglar, de\u0148iz we howa \u00fd\u00fckleri we g\u00fcmr\u00fck i\u015fleri bilen d\u00fcny\u00e4 bo\u00fdun\u00e7a opt we distrib\u00fd\u00fdutorlar \u00fc\u00e7in hyzmat.',
         statLabel: 'Hil saklamak derejesi',
         bullet1: 'Ýygnamakdan eltip bermäge çenli doly sowuk zynjyry',
         bullet2: 'MDH, Ýakyn Gündogar we Ýewropa üçin ýörite pomidor eksport ugurlary',
@@ -816,20 +817,20 @@ const I18N = {
       advantages: {
         eyebrow: 'Näme üçin biz',
         titleLead: 'Esasy',
-        titleAccent: 'arzaky\u015flar',
-        subtitle: '\u00c7altlyk, yzarlamak we \u00f6n\u00fcmi\u0148 hilini goramak \u00fc\u00e7in d\u00f6redilen premium logistika.',
-        cold: { title: 'Sowadyjy transport', text: 'Häzirki zaman reefer awtoulaglar we konteýnerler ýol boyyça optimal temperatura we çyglylygy saklaýar.' },
+        titleAccent: 'sebäpler',
+        subtitle: '\u00c7altlyk we \u00f6n\u00fcmi\u0148 hilini goramak \u00fc\u00e7in d\u00f6redilen premium logistika.',
+        cold: { title: 'Sowadyjy transport', text: 'Häzirki zaman sowadyjy awtoulaglar we konteýnerler ýol boyyça optimal temperatura we çyglylygy saklaýar.' },
         tracking: { title: 'Hakyky wagt yzarlamak', text: 'GPS we temperatura monitoringi — ýükiňiziň nirede we nähili ýagdaýda bolandygyny bilersiňiz.' },
-        customs: { title: 'G\u00fcmr\u00fck goldawy', text: 'Her serhedde h\u00fcn\u00e4rmen fitosanitar resminamalar we \u00e7alt g\u00fcmr\u00fck i\u015fleri.' },
-        fast: { title: 'Çalt halkara eltip bermek', text: 'Ýol, deňiz we howa arkaly optimallaşdyrylan ugurlar — transit wagtyny azaltmak.' },
-        quality: { title: 'Hil saklamak', text: 'Berkitilen işleme düzgünleri we barlaglar — önüm täze we bazara taýýar ýetýär.' },
-        network: { title: 'Global paýlama ulgamy', text: '50+ ýurtda ygtybarly soňky mil eltip bermek üçin hyzmatdaşlyklar.' }
+        customs: { title: 'G\u00fcmr\u00fck goldawy', text: 'Her serhetde h\u00fcn\u00e4rmen fitosanitar resminamalar we \u00e7alt g\u00fcmr\u00fck i\u015fleri.' },
+        fast: { title: 'Çalt halkara eltip bermek', text: 'Gara ýol, deňiz we howa arkaly optimallaşdyrylan ugurlar — transit wagtyny azaltmak.' },
+        quality: { title: 'Hil saklamak', text: ' Önüm täze we bazara taýýar ýetýär.' },
+        network: { title: 'Global paýlama ulgamy', text: '50+ ýurtda ygtybarly eltip bermek üçin hyzmatdaşlyklar.' }
       },
       gallery: {
         eyebrow: 'Önümlerimiz',
         titleLead: 'Eksport edýän',
-        titleAccent: 'täze önümler',
-        subtitle: 'Premium pomidorlar \u2014 esasy h\u00fcn\u00e4r ugurumyz; \u015fe\u00fdle hem halkara bazarlara doly g\u00f6k \u00f6n\u00fcm we miwe \u00e7e\u015fditliligi.',
+        titleAccent: 'täze önümlerimiz',
+        subtitle: 'Premium pomidorlar \u2014 esasy h\u00fcn\u00e4r ugurumyz; \u015fe\u00fdle hem halkara bazarlar üçin g\u00f6k \u00f6n\u00fcm we miwe önümlerimiz.',
         featured: 'Esasy',
         tomatoes: 'Täze pomidorlar',
         tomatoesDesc: 'Premium gyzyl pomidorlar — global satuw üçin esasy eksport önümi.',
@@ -839,7 +840,8 @@ const I18N = {
         peppers: 'Burç',
         onions: 'Sogan',
         grapes: 'Üzüm',
-        apples: 'Alma'
+        apples: 'Alma',
+        cherries: 'Alyca'
       },
       stats: {
         countries: 'Hyzmat edýän ýurtlar',
@@ -851,24 +853,24 @@ const I18N = {
         eyebrow: 'Nädip işleýäris',
         titleLead: 'Eksport',
         titleAccent: 'prosesimiz',
-        subtitle: 'Fermadan halkara satyn alyja çenli açyk sowuk zynjyry iş akymy.',
+        subtitle: 'Fermadan halkara satyn alyja çenli iş akymy.',
         step1: { title: 'Önüm ýygnamak', text: 'Fermalardan we gaplama stansiýalaryndan göni ýygnamak.' },
-        step2: { title: 'Hil barlagy', text: 'Eksportdan öň berk sortirlemek we hil barlagy.' },
-        step3: { title: 'Sowuk ammar', text: 'Ugruna çykarylyşyna çenli temperatura dolandyrylan saklamak.' },
-        step4: { title: 'Halkara daşamak', text: 'Sowadyjy ýol, deňiz we howa ýükleri bilen eltip bermek.' },
-        step5: { title: 'G\u00fcmr\u00fck i\u015fleri', text: 'Her serhedde doly resminamalar we fitosanitar talaplar.' },
+        step2: { title: 'Hil barlagy', text: 'Eksportdan öň ýerleşdirmek we hil barlagy.' },
+        step3: { title: 'Sowuk ammar', text: 'Ýokary derejeli barlag arkaly saklamak.' },
+        step4: { title: 'Halkara daşamak', text: 'Sowadyjy arkaly gara ýol, deňiz we howa ýükleri bilen eltip bermek.' },
+        step5: { title: 'G\u00fcmr\u00fck i\u015fleri', text: 'Her serhetde doly resminamalar we fitosanitar talaplaryny ýerine ýetirmek.' },
         step6: { title: 'Soňky eltip bermek', text: 'Opt satyjylara, supermarketlere we distribýatorlara wagtynda eltip bermek.' }
       },
       cta: {
         title: 'Täze önümleri dünýä boýunça eksport etmäge taýýarmy?',
-        subtitle: 'Täze pomidorlar we önümler üçin ygtybarly, temperatura dolandyrylan halkara eltip bermekde Owadan Kenar bilen hyzmatdaşlyk ediň.',
+        subtitle: 'Täze pomidorlar we önümler üçin ygtybarly, halkara eltip bermekde Owadan Kenar bilen hyzmatdaşlyk ediň.',
         contact: 'Habarla\u015fmak',
         quote: 'Nyrh almak'
       },
       card: {
         title: 'Çalt bozulýan önümler',
         short: 'Täze önüm we pomidor eksporty.',
-        desc: 'Täze gök önüm we miweleriň temperatura dolandyrylan halkara daşamagy.'
+        desc: 'Täze gök önüm we miweleriň halkara daşamak hyzmaty.'
       }
     }
   },
@@ -1274,7 +1276,8 @@ const I18N = {
         peppers: 'Перец',
         onions: 'Лук',
         grapes: 'Виноград',
-        apples: 'Яблоки'
+        apples: 'Яблоки',
+        cherries: 'Вишня'
       },
       stats: {
         countries: 'Стран обслуживания',
